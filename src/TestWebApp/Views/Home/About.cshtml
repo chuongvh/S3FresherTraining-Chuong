@@ -1,0 +1,24 @@
+﻿@model TestWebApp.Models.SampleModel
+@{
+    ViewBag.Title = "About";
+
+    List<SelectListItem> dropDownData = new List<SelectListItem>();
+
+    dropDownData.Add(new SelectListItem() { Text = "1", Value = "1" });
+
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+
+@Html.DropDownListFor(m => m.SampleDropdown1, dropDownData, new { @class = "form-control" })
+
+<select>
+    @foreach (var item in dropDownData)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+</select>
+
+@Html.EditorFor(m => m.SampleDropdown1)

@@ -1,0 +1,44 @@
+﻿@using S3Train.Models;
+@model HomeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+            <h1 class="my-4">Shop Name</h1>
+            <div class="list-group">
+                <a href="#" class="list-group-item">Category 1</a>
+                <a href="#" class="list-group-item">Category 2</a>
+                <a href="#" class="list-group-item">Category 3</a>
+            </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+            @{
+                Html.RenderPartial("_HomeSlider", Model.SliderItems);
+            }
+
+            <div class="row">
+
+                @foreach (var item in Model.Products)
+                {
+                    Html.RenderPartial("_ProductItem", item);
+                }
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>

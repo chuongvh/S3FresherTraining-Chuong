@@ -1,0 +1,29 @@
+﻿@using S3Train.Models;
+@model ProductViewModel
+
+
+<div class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="@Model.ImagePath" alt=""></a>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="#">@Model.Name</a>
+            </h4>
+            <h5>@Model.DisplayPrice</h5>
+            <p class="card-text">@Model.Summary</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                @{
+                    var displayRating = "" + string.Join(string.Empty, Enumerable.Repeat("&#9733;", Model.Rating));
+                    if (Model.Rating < 5)
+                    {
+                        displayRating += string.Join(string.Empty, Enumerable.Repeat("&#9734;", 5 - Model.Rating));
+                    }
+
+                    @Html.Raw(displayRating);
+                }
+            </small>
+        </div>
+    </div>
+</div>

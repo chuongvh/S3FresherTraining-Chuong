@@ -1,0 +1,84 @@
+﻿@model object
+
+@{
+
+    IDictionary<string, object> htmlAttributes = null;
+
+    if (ViewData.ContainsKey("htmlAttributes"))
+    {
+        htmlAttributes = ViewData["htmlAttributes"] as IDictionary<string, object>;
+    }
+
+    if (htmlAttributes == null)
+    {
+        htmlAttributes = new Dictionary<string, object>();
+    }
+
+    string _fieldId = ViewData.TemplateInfo.HtmlFieldPrefix;
+
+    #region class
+
+    // class is not defined
+    if (!ViewData.ContainsKey("class") && !htmlAttributes.ContainsKey("class"))
+    {
+        // set default to use bootstrap class
+        htmlAttributes["class"] = "form-control";
+    }
+    else
+    {
+        // merge the 2 class
+        if (ViewData.ContainsKey("class"))
+        {
+            htmlAttributes["class"] = "form-control " + ViewData["class"];
+        }
+    }
+
+    #endregion class
+
+    #region disabled
+
+    if (ViewData.ContainsKey("disabled") && (bool)ViewData["disabled"])
+    {
+        htmlAttributes["disabled"] = null;
+    }
+    // else the control is enabled
+
+    #endregion disabled
+
+
+    #region data
+
+    string stringValue = Model == null ? "" : Model.ToString();
+
+    List<SelectListItem> listData;
+
+    // Get list data from control attribute first
+    if (this.ViewData.ContainsKey("data"))
+    {
+        listData = (List<SelectListItem>)this.ViewData["data"];
+    }
+    // Then get from ViewData[FieldName]
+    else if (this.ViewData.ContainsKey(ViewData.TemplateInfo.HtmlFieldPrefix))
+    {
+        listData = (List<SelectListItem>)this.ViewData[ViewData.TemplateInfo.HtmlFieldPrefix];
+    }
+    // Else there is no data yet => return empty list
+    else
+    {
+        listData = new List<SelectListItem>();
+    }
+
+    // set the selected item
+    foreach (SelectListItem listItem in listData)
+    {
+        listItem.Selected = listItem.Value == stringValue;
+    }
+
+    #endregion data
+
+
+}
+
+<div class="form-row">
+    @Html.DropDownList("", listData, htmlAttributes)
+</div>

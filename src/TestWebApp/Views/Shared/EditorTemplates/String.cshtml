@@ -1,0 +1,36 @@
+﻿@using System.Collections
+@model string
+@{
+
+    IDictionary<string, object> htmlAttributes = null;
+
+    if (ViewData.ContainsKey("htmlAttributes"))
+    {
+        htmlAttributes = ViewData["htmlAttributes"] as IDictionary<string, object>;
+    }
+
+    if (htmlAttributes == null)
+    {
+        htmlAttributes = new Dictionary<string, object>();
+    }
+
+    string cssClass = ViewData["class"]?.ToString();
+
+    if (string.IsNullOrEmpty(cssClass))
+    {
+        cssClass = "form-control";
+    }
+
+    htmlAttributes["class"] = cssClass;
+
+    htmlAttributes["sampleAtt"] = "1";
+
+    // get ViewData from View instead of model
+    bool viewMode = (bool?)ViewData["ViewMode"] ?? false;
+
+    htmlAttributes["view-mode"] = viewMode;
+}
+
+<div class="textbox-wrapper">
+    @Html.TextBoxFor(m => m, htmlAttributes)
+</div>

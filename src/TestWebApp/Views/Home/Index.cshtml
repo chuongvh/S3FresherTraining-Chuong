@@ -1,0 +1,58 @@
+﻿@model TestWebApp.Models.SampleModel
+@{
+    ViewBag.Title = "Home Page";
+
+    //ViewData["ViewMode"] = true;
+
+    // Data for SampleDropdown1 dropdownlist
+
+    ViewData["SampleDropdown1"] = new List<SelectListItem> {new SelectListItem() {Text = "Option1", Value = "1"},
+        new SelectListItem() {Text = "Option2", Value = "2"}, new SelectListItem() {Text = "Option3", Value = "3"}};
+
+}
+
+<h1>Sample Code</h1>
+
+<table class="table">
+    <tr>
+        <td>
+            @Html.EditorFor(m => m.SampleString1)
+        </td>
+        <td>
+            <pre>
+            Html.EditorFor(m => m.SampleString1)
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.EditorFor(m => m.SampleString2, new { @class = "test-class" })
+        </td>
+        <td>
+            <pre>
+Html.EditorFor(m => m.SampleString2, new { class = "test-class" })
+new { class = "test-class" } will be passed to the View as ViewData
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.EditorFor(m => m.SampleString3, new { @class = "form-control test-class2", htmlAttributes = new Dictionary<string, object> { { "att1", 1 }, { "att2", 1 } } })
+        </td>
+        <td>
+            <pre>
+Html.EditorFor(m => m.SampleString3, new { class = "form-control test-class2", htmlAttributes = new Dictionary {{"att1", 1}, {"att2", 1}} })
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.EditorFor(m => m.SampleDropdown1)
+        </td>
+        <td>
+            <pre>
+            Html.EditorFor(m => m.SampleDropdown1)
+</pre>
+        </td>
+    </tr>
+</table>
