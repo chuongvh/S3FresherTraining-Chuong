@@ -37,7 +37,7 @@ namespace S3Train
         /// Get entity by Id, return null if not found
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public T GetById(Guid id)
+        public T GetById(string id)
         {
             return EntityDbSet.SingleOrDefault(x => x.Id == id);
         }

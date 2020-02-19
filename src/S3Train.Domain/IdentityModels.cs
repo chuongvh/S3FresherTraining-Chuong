@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace S3Train.Domain
 {
@@ -15,5 +16,10 @@ namespace S3Train.Domain
             // Add custom user claims here
             return userIdentity;
         }
+        public string FullName { get; set; }
+        public  string Address { get; set; }
+        public string Status { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

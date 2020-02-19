@@ -54,12 +54,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderItem.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductAdvertisement.cs" />
+    <Compile Include="ProductImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

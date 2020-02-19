@@ -16,6 +16,6 @@ namespace S3Train
         /// Get entity by Id, return null if not found
         /// </summary>
         /// <param name="id">The identifier.</param>
-        T GetById(Guid id);
+        T GetById(string id);
     }
 }

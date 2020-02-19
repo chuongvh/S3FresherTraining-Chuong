@@ -72,6 +72,11 @@
     <Compile Include="Contract\IProductService.cs" />
     <Compile Include="GenenicServiceBase.cs" />
     <Compile Include="IGenenicServiceBase.cs" />
+    <Compile Include="Migrations\202002190239110_Initial.cs" />
+    <Compile Include="Migrations\202002190239110_Initial.Designer.cs">
+      <DependentUpon>202002190239110_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Service\ProductAdvertisementService.cs" />
     <Compile Include="Service\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002190239110_Initial.resx">
+      <DependentUpon>202002190239110_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
