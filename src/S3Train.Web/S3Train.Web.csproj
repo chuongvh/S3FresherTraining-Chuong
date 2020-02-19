@@ -205,15 +205,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002120734596_InitCreate.cs" />
-    <Compile Include="Migrations\202002120734596_InitCreate.Designer.cs">
-      <DependentUpon>202002120734596_InitCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002121038332_AddProductAdvertisementTable.cs" />
-    <Compile Include="Migrations\202002121038332_AddProductAdvertisementTable.Designer.cs">
-      <DependentUpon>202002121038332_AddProductAdvertisementTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -320,14 +311,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002120734596_InitCreate.resx">
-      <DependentUpon>202002120734596_InitCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002121038332_AddProductAdvertisementTable.resx">
-      <DependentUpon>202002121038332_AddProductAdvertisementTable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\S3Train.Core\S3Train.Core.csproj">
