@@ -66,7 +66,7 @@ namespace S3Train.Migrations
                         Status = "default"
                     },
                 };
-            categories.ForEach(x => context.Categories.AddOrUpdate(c => c.Id, x));
+            categories.ForEach(x => context.Categories.AddOrUpdate(c => c.Name, x));
             context.SaveChanges();
 
             var products = new List<Product>
@@ -200,7 +200,7 @@ namespace S3Train.Migrations
                         Rating = 1
                     },
                 };
-            products.ForEach(x => context.Products.AddOrUpdate(p => p.Id, x));
+            products.ForEach(x => context.Products.AddOrUpdate(p => p.Name, x));
             context.SaveChanges();
 
             var productAds = new List<ProductAdvertisement>
@@ -271,7 +271,7 @@ namespace S3Train.Migrations
                         AdType = ProductAdvertisementType.MidHorRectangleBanner
                     },
                 };
-            productAds.ForEach(x => context.ProductAdvertisements.AddOrUpdate(p => p.Id, x));
+            productAds.ForEach(x => context.ProductAdvertisements.AddOrUpdate(p => p.Title, x));
             context.SaveChanges();
 
             var productImages = new List<ProductImage>
@@ -322,7 +322,7 @@ namespace S3Train.Migrations
                     },
 
                 };
-            productImages.ForEach(x => context.ProductImages.AddOrUpdate(p => p.Id, x));
+            productImages.ForEach(x => context.ProductImages.AddOrUpdate(p => p.Title, x));
             context.SaveChanges();
 
             var customers = new List<Customer>
@@ -362,7 +362,7 @@ namespace S3Train.Migrations
                 },
             };
 
-            customers.ForEach(x => context.Customers.AddOrUpdate(p => p.Id, x));
+            customers.ForEach(x => context.Customers.AddOrUpdate(p => p.Email, x));
             context.SaveChanges();
 
             var passwordHash = new PasswordHasher();
@@ -417,61 +417,113 @@ namespace S3Train.Migrations
                     AccessFailedCount = 0,
                 },
             };
-            users.ForEach(x => context.Users.AddOrUpdate(p => p.Id, x));
+            users.ForEach(x => context.Users.AddOrUpdate(p => p.UserName, x));
             context.SaveChanges();
 
             context.Roles.AddOrUpdate(new IdentityRole { Id = "1", Name = "Admin" });
-
-            /*
-            var orderItems = new List<OrderItem>
-            {
-                new OrderItem
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    CreatedDate = DateTime.Now,
-                    IsActive = true,
-
-                    Amount = 1,
-                    Price = products.Single(x=> x.Name.Equals("Product One",StringComparison.OrdinalIgnoreCase)).Price,
-                 },
-
-                new OrderItem
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    CreatedDate = DateTime.Now,
-                    IsActive = true,
-
-                    Amount = 1,
-                    Price = products.Single(x=> x.Name.Equals("Product Two",StringComparison.OrdinalIgnoreCase)).Price,
-                    },
-
-                new OrderItem
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    CreatedDate = DateTime.Now,
-                    IsActive = true,
-
-                    Amount = 1,
-                    Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
-                },
-            };
-            orderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
-            context.SaveChanges();
 
             var orders = new List<Order>
             {
                 new Order
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = "Order1",
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+                    
+                    CustomerId = customers.Single(x => x.Email.Equals("Email One", StringComparison.OrdinalIgnoreCase)).Id,
+                    Status = "default",
+                },
+
+                new Order
+                {
+                    Id = "Order2",
                     CreatedDate = DateTime.Now,
                     IsActive = true,
 
-                    CustomerId = customers.Single(x => x.Email.Equals("Email One", StringComparison.OrdinalIgnoreCase)).Id,
+                    CustomerId = customers.Single(x => x.Email.Equals("Email Two", StringComparison.OrdinalIgnoreCase)).Id,
+                    Status = "default",
+                },
+
+                new Order
+                {
+                    Id = "Order3",
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+
+                    CustomerId = customers.Single(x => x.Email.Equals("Email Two", StringComparison.OrdinalIgnoreCase)).Id,
                     Status = "default",
                 },
             };
             orders.ForEach(x => context.Orders.AddOrUpdate(p => p.Id, x));
-            context.SaveChanges(); */
+            context.SaveChanges();
+
+            //var orderItems = new List<OrderItem>
+            //{
+            //    new OrderItem
+            //    {
+            //        Id = "OrderItem1",
+            //        CreatedDate = DateTime.Now,
+            //        IsActive = true,
+
+            //        OrderId = "Order1",
+            //        Amount = 1,
+            //        Price = products.Single(x=> x.Name.Equals("Product One",StringComparison.OrdinalIgnoreCase)).Price,
+            //     },
+
+            //    new OrderItem
+            //    {
+            //        Id = "OrderItem2",
+            //        CreatedDate = DateTime.Now,
+            //        IsActive = true,
+
+            //        OrderId = "Order2",
+            //        Amount = 1,
+            //        Price = products.Single(x=> x.Name.Equals("Product Two",StringComparison.OrdinalIgnoreCase)).Price,
+            //        },
+
+            //    new OrderItem
+            //    {
+            //        Id = "OrderItem3",
+            //        CreatedDate = DateTime.Now,
+            //        IsActive = true,
+
+            //        OrderId = "Order2",
+            //        Amount = 1,
+            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+            //    },
+            //    new OrderItem
+            //    {
+            //        Id = "OrderItem4",
+            //        CreatedDate = DateTime.Now,
+            //        IsActive = true,
+
+            //        OrderId = "Order1",
+            //        Amount = 1,
+            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+            //    },
+            //    new OrderItem
+            //    {
+            //        Id = "OrderItem5",
+            //        CreatedDate = DateTime.Now,
+            //        IsActive = true,
+
+            //        OrderId = "Order1",
+            //        Amount = 1,
+            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+            //    },
+            //    new OrderItem
+            //    {
+            //        Id = "OrderItem6",
+            //        CreatedDate = DateTime.Now,
+            //        IsActive = true,
+
+            //        OrderId = "Order1",
+            //        Amount = 1,
+            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+            //    },
+            //};
+            //orderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
+            //context.SaveChanges();
         } 
     }
 }
