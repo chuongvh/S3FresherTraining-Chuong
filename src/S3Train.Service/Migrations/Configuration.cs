@@ -1,6 +1,8 @@
 using S3Train.Domain;
 namespace S3Train.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -362,42 +364,66 @@ namespace S3Train.Migrations
 
             customers.ForEach(x => context.Customers.AddOrUpdate(p => p.Id, x));
             context.SaveChanges();
-/*
-            var Users = new List<ApplicationUser>
+
+            var passwordHash = new PasswordHasher();
+            var users = new List<ApplicationUser>
             {
                 new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
-
+                    FullName = "Full Name",
+                    UserName = "admin1",
+                    Address = "Address",
+                    Status = "default",
+                    PasswordHash = passwordHash.HashPassword("123456"),
+                    PhoneNumber = "123456",
+                    Email = "admin1@mail.com",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                },
+               new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    FullName = "Full Name",
+                    UserName = "admin2",
+                    Address = "Address",
+                    Status = "default",
+                    PasswordHash = passwordHash.HashPassword("123456"),
+                    PhoneNumber = "123456",
+                    Email = "admin1@mail.com",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
                 },
                 new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
-
-                },
-                new ApplicationUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-
-                },
-            };
-            Users.ForEach(x => context.Users.AddOrUpdate(p => p.FullName, x));
-            context.SaveChanges();
-
-            var Orders = new List<Order>
-            {
-                new Order
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    CreatedDate = DateTime.Now,
-                    IsActive = true,
-
+                    FullName = "Full Name",
+                    UserName = "admin3",
+                    Address = "Address",
+                    Status = "default",
+                    PasswordHash = passwordHash.HashPassword("123456"),
+                    PhoneNumber = "123456",
+                    Email = "admin1@mail.com",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
                 },
             };
-            Orders.ForEach(x => context.Orders.AddOrUpdate(p => p.Id, x));
+            users.ForEach(x => context.Users.AddOrUpdate(p => p.Id, x));
             context.SaveChanges();
 
-            var OrderItems = new List<OrderItem>
+            context.Roles.AddOrUpdate(new IdentityRole { Id = "1", Name = "Admin" });
+
+            /*
+            var orderItems = new List<OrderItem>
             {
                 new OrderItem
                 {
@@ -405,10 +431,47 @@ namespace S3Train.Migrations
                     CreatedDate = DateTime.Now,
                     IsActive = true,
 
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product One",StringComparison.OrdinalIgnoreCase)).Price,
+                 },
+
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Two",StringComparison.OrdinalIgnoreCase)).Price,
+                    },
+
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
                 },
             };
-            OrderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
-            context.SaveChanges();  */
-        }
+            orderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
+            context.SaveChanges();
+
+            var orders = new List<Order>
+            {
+                new Order
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+
+                    CustomerId = customers.Single(x => x.Email.Equals("Email One", StringComparison.OrdinalIgnoreCase)).Id,
+                    Status = "default",
+                },
+            };
+            orders.ForEach(x => context.Orders.AddOrUpdate(p => p.Id, x));
+            context.SaveChanges(); */
+        } 
     }
 }
