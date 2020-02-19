@@ -31,16 +31,14 @@ namespace S3Train.Controllers
 
         private static IList<ProductViewModel> GetHomeProducts(IList<Product> products)
         {
-            return null;
-            //return products.Select(x => new ProductViewModel
-            //{
-            //    Id = x.Id,
-            //    ImagePath = x.ImagePath,
-            //    Name = x.Name,
-            //    DisplayPrice = $"${x.Price}",
-            //    Rating = x.Rating ?? 0,
-            //    Summary = x.Summary
-            //}).ToList();
+            return products.Select(x => new ProductViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                DisplayPrice = $"${x.Price}",
+                Rating = x.Rating ?? 0,
+                Description = x.Description
+            }).ToList();
         }
 
         private static IList<SliderItemViewModel> GetHomeSlider(IList<ProductAdvertisement> productAds)
