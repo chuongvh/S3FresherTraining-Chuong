@@ -1,14 +1,15 @@
+using S3Train.Core.Enum;
+using S3Train.Core.Extension;
 using S3Train.Domain;
+using S3Train.IdentityManager;
+using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
+
 namespace S3Train.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     internal sealed class Configuration : DbMigrationsConfiguration<S3Train.Domain.ApplicationDbContext>
     {
         public Configuration()
@@ -22,6 +23,77 @@ namespace S3Train.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
+
+            #region Create User Roles
+
+            var roleStoreManager = new ApplicationRoleStoreManager(context);
+            var roleManager = new ApplicationRoleManager(roleStoreManager);
+
+            var roleExist = roleManager.RoleExists(DefaultRole.Administration);
+            if (!roleExist)
+            {
+                var roleId = Guid.NewGuid().ToString();
+                roleManager.Create(new ApplicationRole
+                {
+                    Id = roleId,
+                    Name = DefaultRole.Administration,
+                    Description = DefaultRole.Administration
+                });
+            }
+
+            var listRoles = Enum.GetNames(typeof(UserRoles)).ToList();
+
+            foreach (var role in listRoles)
+            {
+                var exists = roleManager.RoleExists(role);
+                if (!exists)
+                {
+                    var roleId = Guid.NewGuid().ToString();
+                    roleManager.Create(new ApplicationRole
+                    {
+                        Id = roleId,
+                        Name = role,
+                        Description = (Enum.Parse(typeof(UserRoles), role)).GetDecription()
+                    });
+                }
+                else
+                {
+                    roleManager.Update(new ApplicationRole
+                    {
+                        Name = role,
+                        Description = (Enum.Parse(typeof(UserRoles), role)).GetDecription()
+                    });
+                }
+            }
+
+
+            var userStoreManager = new ApplicationUserStoreManager(context);
+            var userManager = new ApplicationUserManager(userStoreManager);
+
+            var user = userManager.FindByName(DefaultUser.Administration);
+            if (user == null)
+            {
+                var userId = Guid.NewGuid().ToString();
+                var passwordHash = new PasswordHasher();
+                string password = passwordHash.HashPassword(DefaultUser.Administration);
+                var applicationUser = new ApplicationUser
+                {
+                    Id = userId,
+                    UserName = DefaultUser.Administration,
+                    Email = "admin@admin.com",
+                    FullName = DefaultUser.Administration,
+                    PasswordHash = password,
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0
+                };
+                userManager.Create(applicationUser);
+                userManager.AddToRoles(applicationUser.Id, DefaultRole.Administration);
+            }
+
+            #endregion
 
             var categories = new List<Category>
                 {
@@ -283,7 +355,7 @@ namespace S3Train.Migrations
                         IsActive = true,
 
                         ImagePath = "http://placehold.it/900x350",
-                        ProductId = products.Single(x => x.Name.Equals("Product One", StringComparison.OrdinalIgnoreCase)).Id,   
+                        ProductId = products.Single(x => x.Name.Equals("Product One", StringComparison.OrdinalIgnoreCase)).Id,
                         Title = "Image One",
                         Description = "Lorem ipsum",
                     },
@@ -336,7 +408,7 @@ namespace S3Train.Migrations
                     FullName = "Customer One",
                     Email = "Email One",
                     Phone = "Phone",
-                    ShipAddress = "Address",  
+                    ShipAddress = "Address",
                 },
                 new Customer
                 {
@@ -365,63 +437,6 @@ namespace S3Train.Migrations
             customers.ForEach(x => context.Customers.AddOrUpdate(p => p.Email, x));
             context.SaveChanges();
 
-            var passwordHash = new PasswordHasher();
-            var users = new List<ApplicationUser>
-            {
-                new ApplicationUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    FullName = "Full Name",
-                    UserName = "admin1",
-                    Address = "Address",
-                    Status = "default",
-                    PasswordHash = passwordHash.HashPassword("123456"),
-                    PhoneNumber = "123456",
-                    Email = "admin1@mail.com",
-                    EmailConfirmed = false,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 0,
-                },
-               new ApplicationUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    FullName = "Full Name",
-                    UserName = "admin2",
-                    Address = "Address",
-                    Status = "default",
-                    PasswordHash = passwordHash.HashPassword("123456"),
-                    PhoneNumber = "123456",
-                    Email = "admin1@mail.com",
-                    EmailConfirmed = false,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 0,
-                },
-                new ApplicationUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    FullName = "Full Name",
-                    UserName = "admin3",
-                    Address = "Address",
-                    Status = "default",
-                    PasswordHash = passwordHash.HashPassword("123456"),
-                    PhoneNumber = "123456",
-                    Email = "admin1@mail.com",
-                    EmailConfirmed = false,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 0,
-                },
-            };
-            users.ForEach(x => context.Users.AddOrUpdate(p => p.UserName, x));
-            context.SaveChanges();
-
-            context.Roles.AddOrUpdate(new IdentityRole { Id = "1", Name = "Admin" });
-
             var orders = new List<Order>
             {
                 new Order
@@ -429,7 +444,7 @@ namespace S3Train.Migrations
                     Id = "Order1",
                     CreatedDate = DateTime.Now,
                     IsActive = true,
-                    
+
                     CustomerId = customers.Single(x => x.Email.Equals("Email One", StringComparison.OrdinalIgnoreCase)).Id,
                     Status = "default",
                 },
@@ -524,6 +539,6 @@ namespace S3Train.Migrations
             //};
             //orderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
             //context.SaveChanges();
-        } 
+        }
     }
 }

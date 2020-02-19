@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using System.Web.Helpers;
 using S3Train.App_Start;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -14,6 +16,17 @@ namespace S3Train
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DependencyConfig.RegisterDependencyResolvers();
+
+            IViewEngine razorEngine = new RazorViewEngine()
+            {
+                FileExtensions = new[] { "cshtml" }
+            };
+
+            ViewEngines.Engines.Add(razorEngine);
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+
+            MvcHandler.DisableMvcResponseHeader = true;
         }
     }
 }

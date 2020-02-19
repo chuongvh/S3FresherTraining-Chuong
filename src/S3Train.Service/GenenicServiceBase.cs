@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using S3Train.Domain;
+using S3Train.Service;
 
 namespace S3Train
 {

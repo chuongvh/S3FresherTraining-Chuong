@@ -3,10 +3,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace S3Train.Domain
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+                    : base("DefaultConnection")
         {
         }
 
@@ -15,7 +15,6 @@ namespace S3Train.Domain
         public DbSet<ProductAdvertisement> ProductAdvertisements { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        //public DbSet<ApplicationUser> IdentityUsers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
@@ -36,7 +35,6 @@ namespace S3Train.Domain
             modelBuilder.Entity<Product>().Property(x => x.SKU).IsRequired();
             modelBuilder.Entity<Product>().Property(x => x.Status).IsRequired();
             modelBuilder.Entity<Product>().HasMany(c => c.ProductImages).WithRequired(p => p.Product);
-            modelBuilder.Entity<Product>().HasOptional(s => s.OrderItem).WithRequired(c => c.Product);
 
             modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<Category>().Property(x => x.Name).HasMaxLength(100).IsRequired();
@@ -62,21 +60,18 @@ namespace S3Train.Domain
             modelBuilder.Entity<Customer>().Property(x => x.ShipAddress).HasMaxLength(500).IsRequired();
             modelBuilder.Entity<Customer>().Property(x => x.Phone).HasMaxLength(50).IsRequired();
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("IdentityUser");
             modelBuilder.Entity<ApplicationUser>().Property(x => x.FullName).HasMaxLength(200).IsRequired();
-            modelBuilder.Entity<ApplicationUser>().Property(x => x.Address).HasMaxLength(500).IsRequired();
-            modelBuilder.Entity<ApplicationUser>().Property(x => x.Status).IsRequired();
 
             modelBuilder.Entity<Order>().ToTable("Order");
             modelBuilder.Entity<Order>().Property(x => x.TotalPrice).IsRequired();
             modelBuilder.Entity<Order>().Property(x => x.Status).IsRequired();
             modelBuilder.Entity<Order>().HasMany(s => s.OrderItems).WithRequired(c => c.Order);
-            modelBuilder.Entity<Order>().HasRequired<Customer>(s => s.Customer).WithMany(g => g.Orders) ;
-            modelBuilder.Entity<Order>().HasOptional<ApplicationUser>(s => s.IdentityUser).WithMany(g => g.Orders);
+            modelBuilder.Entity<Order>().HasRequired<Customer>(s => s.Customer).WithMany(g => g.Orders);
 
             modelBuilder.Entity<OrderItem>().ToTable("OrderItem");
             modelBuilder.Entity<OrderItem>().Property(x => x.Amount).IsRequired();
             modelBuilder.Entity<OrderItem>().Property(x => x.Price).IsRequired();
+            modelBuilder.Entity<OrderItem>().HasRequired(c => c.Order).WithMany(c => c.OrderItems);
         }
     }
 }

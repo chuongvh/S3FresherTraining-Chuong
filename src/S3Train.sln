@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Train.Web", "S3Train.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "TestWebApp\TestWebApp.csproj", "{A471407A-602D-4CC3-AA73-95E65A64D233}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Train.Model", "S3Train.Model\S3Train.Model.csproj", "{40B960C1-9793-47DD-B300-3D010F5FB0CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A471407A-602D-4CC3-AA73-95E65A64D233}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A471407A-602D-4CC3-AA73-95E65A64D233}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A471407A-602D-4CC3-AA73-95E65A64D233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40B960C1-9793-47DD-B300-3D010F5FB0CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B960C1-9793-47DD-B300-3D010F5FB0CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B960C1-9793-47DD-B300-3D010F5FB0CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B960C1-9793-47DD-B300-3D010F5FB0CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{DB766CB7-FE6C-4849-9DFE-12A70A537F80} = {C41780E6-0393-470A-B0AD-E46E7AFFBA91}
 		{E1778609-49E4-4DE5-A064-570F6E8BCD0F} = {F58AC1F3-EDFA-4B17-AE4C-3E5A783D1005}
 		{95439E7B-F59D-4ACD-A2B0-75C27F3319AF} = {F58AC1F3-EDFA-4B17-AE4C-3E5A783D1005}
+		{40B960C1-9793-47DD-B300-3D010F5FB0CF} = {F58AC1F3-EDFA-4B17-AE4C-3E5A783D1005}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E65401C-EF15-4E22-A6CF-234117977687}

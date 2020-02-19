@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using S3Train.IdentityManager;
 using S3Train.Models;
 
 namespace S3Train.Controllers
