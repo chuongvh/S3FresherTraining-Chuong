@@ -116,7 +116,7 @@
     <Compile Include="Migrations\202002190239110_Initial.Designer.cs">
       <DependentUpon>202002190239110_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service\IAccountManager.cs" />
+    <Compile Include="Service\AccountManager.cs" />
     <Compile Include="Service\ProductAdvertisementService.cs" />
     <Compile Include="Service\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
