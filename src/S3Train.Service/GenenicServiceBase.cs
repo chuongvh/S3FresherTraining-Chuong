@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using S3Train.Domain;
+using X.PagedList;
 
 namespace S3Train
 {
@@ -45,7 +46,7 @@ namespace S3Train
 
         public T GetById(string id)
         {
-            return EntityDbSet.SingleOrDefault(x => x.Id == id);
+            return EntityDbSet.Find(id);
         }
 
         public T Get(Expression<Func<T, bool>> predicate) 
@@ -91,6 +92,11 @@ namespace S3Train
             var items = EntityDbSet.Where(predicate);
             EntityDbSet.RemoveRange(items);
             DbContext.SaveChanges();
+        }
+
+        public IPagedList<T> GetAllPaged()
+        {
+            throw new NotImplementedException();
         }
     }
 }

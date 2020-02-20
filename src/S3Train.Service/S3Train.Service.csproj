@@ -93,11 +93,14 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Contract\IAccountManager.cs" />
+    <Compile Include="Contract\ICategoryService.cs" />
     <Compile Include="Contract\IProductAdvertisementService.cs" />
+    <Compile Include="Contract\IProductImageService.cs" />
     <Compile Include="Contract\IProductService.cs" />
     <Compile Include="Contract\IRoleService.cs" />
     <Compile Include="Contract\IUserIdentityService.cs" />
     <Compile Include="Contract\IUserService.cs" />
+    <Compile Include="Contract\IValidationService.cs" />
     <Compile Include="GenenicServiceBase.cs" />
     <Compile Include="IdentityManager\ApplicationRoleManager.cs" />
     <Compile Include="IdentityManager\ApplicationRoleStoreManager.cs" />
@@ -117,12 +120,15 @@
       <DependentUpon>202002190239110_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\AccountManager.cs" />
+    <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\ProductAdvertisementService.cs" />
+    <Compile Include="Service\ProductImageService.cs" />
     <Compile Include="Service\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\RoleService.cs" />
     <Compile Include="Service\UserIdentityService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="Service\ValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\S3Train.Core\S3Train.Core.csproj">
