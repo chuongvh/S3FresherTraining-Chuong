@@ -71,7 +71,7 @@ namespace S3Train.Domain
             modelBuilder.Entity<OrderItem>().ToTable("OrderItem");
             modelBuilder.Entity<OrderItem>().Property(x => x.Amount).IsRequired();
             modelBuilder.Entity<OrderItem>().Property(x => x.Price).IsRequired();
-            modelBuilder.Entity<OrderItem>().HasRequired(c => c.Order).WithMany(c => c.OrderItems);
+            modelBuilder.Entity<OrderItem>().HasRequired<Order>(c => c.Order).WithMany(c => c.OrderItems);
         }
     }
 }

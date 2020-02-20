@@ -441,7 +441,7 @@ namespace S3Train.Migrations
             {
                 new Order
                 {
-                    Id = "Order1",
+                    Id = Guid.NewGuid().ToString(),
                     CreatedDate = DateTime.Now,
                     IsActive = true,
 
@@ -451,7 +451,7 @@ namespace S3Train.Migrations
 
                 new Order
                 {
-                    Id = "Order2",
+                    Id = Guid.NewGuid().ToString(),
                     CreatedDate = DateTime.Now,
                     IsActive = true,
 
@@ -461,7 +461,7 @@ namespace S3Train.Migrations
 
                 new Order
                 {
-                    Id = "Order3",
+                    Id = Guid.NewGuid().ToString(),
                     CreatedDate = DateTime.Now,
                     IsActive = true,
 
@@ -472,73 +472,79 @@ namespace S3Train.Migrations
             orders.ForEach(x => context.Orders.AddOrUpdate(p => p.Id, x));
             context.SaveChanges();
 
-            //var orderItems = new List<OrderItem>
-            //{
-            //    new OrderItem
-            //    {
-            //        Id = "OrderItem1",
-            //        CreatedDate = DateTime.Now,
-            //        IsActive = true,
+            var orderItems = new List<OrderItem>
+            {
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
 
-            //        OrderId = "Order1",
-            //        Amount = 1,
-            //        Price = products.Single(x=> x.Name.Equals("Product One",StringComparison.OrdinalIgnoreCase)).Price,
-            //     },
+                    ProductId = products.Single(x=> x.Name.Equals("Product One",StringComparison.OrdinalIgnoreCase)).Id,
+                    OrderId = orders[1].Id,
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product One",StringComparison.OrdinalIgnoreCase)).Price,
+                 },
 
-            //    new OrderItem
-            //    {
-            //        Id = "OrderItem2",
-            //        CreatedDate = DateTime.Now,
-            //        IsActive = true,
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
 
-            //        OrderId = "Order2",
-            //        Amount = 1,
-            //        Price = products.Single(x=> x.Name.Equals("Product Two",StringComparison.OrdinalIgnoreCase)).Price,
-            //        },
+                    ProductId = products.Single(x=> x.Name.Equals("Product Two",StringComparison.OrdinalIgnoreCase)).Id,
+                    OrderId = orders[2].Id,
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Two",StringComparison.OrdinalIgnoreCase)).Price,
+                    },
 
-            //    new OrderItem
-            //    {
-            //        Id = "OrderItem3",
-            //        CreatedDate = DateTime.Now,
-            //        IsActive = true,
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
 
-            //        OrderId = "Order2",
-            //        Amount = 1,
-            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
-            //    },
-            //    new OrderItem
-            //    {
-            //        Id = "OrderItem4",
-            //        CreatedDate = DateTime.Now,
-            //        IsActive = true,
+                    ProductId = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Id,
+                    OrderId = orders[2].Id,
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+                },
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
 
-            //        OrderId = "Order1",
-            //        Amount = 1,
-            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
-            //    },
-            //    new OrderItem
-            //    {
-            //        Id = "OrderItem5",
-            //        CreatedDate = DateTime.Now,
-            //        IsActive = true,
+                    ProductId = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Id,
+                    OrderId = orders[1].Id,
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+                },
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
 
-            //        OrderId = "Order1",
-            //        Amount = 1,
-            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
-            //    },
-            //    new OrderItem
-            //    {
-            //        Id = "OrderItem6",
-            //        CreatedDate = DateTime.Now,
-            //        IsActive = true,
+                    ProductId = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Id,
+                    OrderId = orders[1].Id,
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+                },
+                new OrderItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
 
-            //        OrderId = "Order1",
-            //        Amount = 1,
-            //        Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
-            //    },
-            //};
-            //orderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
-            //context.SaveChanges();
+                    ProductId = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Id,
+                    OrderId = orders[1].Id,
+                    Amount = 1,
+                    Price = products.Single(x=> x.Name.Equals("Product Three",StringComparison.OrdinalIgnoreCase)).Price,
+                },
+            };
+            orderItems.ForEach(x => context.OrderItems.AddOrUpdate(p => p.Id, x));
+            context.SaveChanges();
         }
     }
 }
