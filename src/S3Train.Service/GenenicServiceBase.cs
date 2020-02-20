@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using S3Train.Domain;
 using S3Train.Service;
+using X.PagedList;
 
 namespace S3Train
 {
@@ -32,6 +33,49 @@ namespace S3Train
         public List<T> SelectAll()
         {
             return EntityDbSet.ToList();
+        }
+
+        public T Create(T entity)
+        {
+            try
+            {
+                EntityDbSet.Add(entity);
+                DbContext.SaveChanges();
+                return entity;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public bool DeleteById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<T> getAllPaged()
+        {
+            throw new NotImplementedException();
+        }
+        public T GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Update(T entity)
+        {
+            try
+            {
+                EntityDbSet.Add(entity);
+                DbContext.SaveChanges();
+                return entity;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>

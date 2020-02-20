@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using S3Train.Domain;
+using X.PagedList;
 
 namespace S3Train
 {
@@ -17,5 +18,10 @@ namespace S3Train
         /// </summary>
         /// <param name="id">The identifier.</param>
         T GetById(string id);
+        T Create(T entity);
+        bool DeleteById(string id);
+        IPagedList<T> getAllPaged();
+        T GetByName(string name);
+        T Update(T entity);
     }
 }
