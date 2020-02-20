@@ -12,6 +12,7 @@ namespace S3Train
         IQueryable<T> Query();
         List<T> GetAll();
         List<T> GetAll(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy);
+        IEnumerable<T> Gets(Expression<Func<T, bool>> predicate);
         IEnumerable<T> Gets(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy);
         T GetById(string id);
         T Get(Expression<Func<T, bool>> predicate);

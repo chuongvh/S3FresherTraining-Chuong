@@ -39,6 +39,11 @@ namespace S3Train
             return orderBy(EntityDbSet).ToList();
         }
 
+        public IEnumerable<T> Gets(Expression<Func<T, bool>> predicate)
+        {
+            return EntityDbSet.Where(predicate).ToList();
+        }
+
         public IEnumerable<T> Gets(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy)
         {
             return orderBy(EntityDbSet.Where(predicate)).ToList();
